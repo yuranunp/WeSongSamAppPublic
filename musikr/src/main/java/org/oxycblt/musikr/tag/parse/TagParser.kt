@@ -74,6 +74,9 @@ private data object TagParserImpl : TagParser {
                     ?: listOf(),
             albumArtistSortNames = metadata.albumArtistSortNames() ?: listOf(),
             genreNames = metadata.genreNames() ?: listOf(),
+            wssMoods = metadata.wssMoods(),
+            wssBpm = metadata.wssBpm(),
+            wssEnergy = metadata.wssEnergy(),
         )
     }
 }

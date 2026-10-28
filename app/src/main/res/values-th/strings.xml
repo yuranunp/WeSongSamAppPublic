@@ -139,4 +139,49 @@
     <string name="lbl_notice">ประกาศโอเพนซอร์ส</string>
     <string name="lng_notice">WeSongSam Mobile สร้างจาก Auxio โดย OxygenCobalt (https://github.com/OxygenCobalt/Auxio) เผยแพร่ภายใต้สัญญาอนุญาต GNU General Public License v3 การเปลี่ยนแปลงในฟอร์กนี้: เปลี่ยนชื่อแอปและ application ID, ไอคอนแอปใหม่, อัปเดตหน้าเกี่ยวกับ, README และ NOTICE ดูรายการทั้งหมดได้ใน NOTICE.md ในที่เก็บซอร์สโค้ด</string>
     <string name="lbl_fork_source">ซอร์สโค้ด (ฟอร์กนี้)</string>
+    <!-- WeSongSam namespace | ข้อความของแอป -->
+    <eat-comment />
+
+    <string name="wss_folder_1">โฟลเดอร์ 1</string>
+    <string name="wss_folder_2">โฟลเดอร์ 2</string>
+    <string name="wss_folder_3">โฟลเดอร์ 3</string>
+    <string name="wss_folder_4">โฟลเดอร์ 4</string>
+    <string name="wss_folder_5">โฟลเดอร์ 5</string>
+    <string name="wss_folder_6">โฟลเดอร์ 6</string>
+    <string name="wss_moment_title">อารมณ์และช่วงเวลา</string>
+    <string name="wss_mood_header">เพิ่มตามอารมณ์</string>
+    <string name="wss_situation_header">เพลงสำหรับช่วงเวลานี้</string>
+    <string name="wss_no_matches_toast">ไม่พบเพลงที่ตรงกัน</string>
+    <string name="wss_moved_toast">ย้ายไปที่ %1$s แล้ว</string>
+    <string name="wss_no_folder_toast">ยังไม่ได้ตั้งค่าโฟลเดอร์สำหรับปุ่มนี้</string>
+    <string name="wss_move_failed_toast">ย้ายไม่สำเร็จ: %1$s</string>
+    <string name="wss_set_title">WeSongSam</string>
+    <string name="wss_set_desc">โฟลเดอร์ อารมณ์ ช่วงเวลา และบันทึกการทำงาน</string>
+    <string name="wss_set_folders_header">ปุ่มย้ายไปโฟลเดอร์</string>
+    <string name="wss_set_folder_label_hint">ชื่อปุ่ม</string>
+    <string name="wss_set_pick_folder">เลือกโฟลเดอร์</string>
+    <string name="wss_set_folder_none">ยังไม่ได้ตั้งค่า</string>
+    <string name="wss_set_moods_header">อารมณ์เพลง</string>
+    <string name="wss_set_moods_hint">คำสำหรับอารมณ์ คั่นด้วยเครื่องหมายจุลภาค</string>
+    <string name="wss_set_situations_header">ช่วงเวลา/สถานการณ์</string>
+    <string name="wss_set_situations_hint">คำสำหรับสถานการณ์ คั่นด้วยเครื่องหมายจุลภาค</string>
+    <string name="wss_set_save_lists">บันทึกรายการ</string>
+    <string name="wss_saved_toast">บันทึกแล้ว</string>
+    <string name="wss_set_log_header">บันทึกการทำงาน</string>
+    <string name="wss_set_log_default">โฟลเดอร์ของแอป (WeSongSam_actions.log)</string>
+    <string name="wss_set_pick_log_dir">เลือกโฟลเดอร์บันทึก</string>
+    <string name="wss_set_import_header">นำเข้า</string>
+    <string name="wss_set_import_desc">นำเข้าไฟล์ WeSongSam_phone.json ที่สร้างจากโปรแกรมบนวินโดวส์</string>
+    <string name="wss_set_import_button">นำเข้า WeSongSam_phone.json</string>
+    <string name="wss_import_ok_toast">นำเข้าการตั้งค่า WeSongSam แล้ว</string>
+    <string name="wss_import_failed_toast">นำเข้าการตั้งค่าไม่สำเร็จ</string>
+
+    <string-array name="wss_default_situations">
+        <item>นอน</item>
+        <item>ผ่อน</item>
+        <item>ทำงาน</item>
+        <item>เดิน</item>
+        <item>เต้น</item>
+        <item>ออกกำลังกาย</item>
+    </string-array>
 </resources>

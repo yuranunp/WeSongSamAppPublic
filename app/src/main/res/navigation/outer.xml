@@ -34,9 +34,18 @@
             android:id="@+id/audio_peferences"
             app:destination="@id/audio_preferences_fragment" />
         <action
+            android:id="@+id/wesongsam_settings"
+            app:destination="@id/wesongsam_settings_fragment" />
+        <action
             android:id="@+id/music_locations_settings"
             app:destination="@id/music_locations_dialog" />
     </fragment>
+
+    <fragment
+        android:id="@+id/wesongsam_settings_fragment"
+        android:name="org.oxycblt.auxio.wesongsam.WeSongSamSettingsFragment"
+        android:label="wesongsam_settings_fragment"
+        tools:layout="@layout/fragment_wesongsam_settings" />
 
     <fragment
         android:id="@+id/ui_preferences_fragment"

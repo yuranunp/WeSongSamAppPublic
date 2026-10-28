@@ -500,4 +500,49 @@
     <string name="lng_notice">WeSongSam Mobile is based on Auxio by OxygenCobalt (https://github.com/OxygenCobalt/Auxio), licensed under the GNU General Public License v3. Changes in this fork: renamed app and application ID, new launcher icon, updated About screen, README and NOTICE. See NOTICE.md in the source repository for the full list.</string>
     <string name="lbl_fork_source">Source code (this fork)</string>
     <string name="lbl_fork_url">https://github.com/yuranunp/WeSongSamAppPublic</string>
+    <!-- WeSongSam namespace | App strings -->
+    <eat-comment />
+
+    <string name="wss_folder_1">Folder 1</string>
+    <string name="wss_folder_2">Folder 2</string>
+    <string name="wss_folder_3">Folder 3</string>
+    <string name="wss_folder_4">Folder 4</string>
+    <string name="wss_folder_5">Folder 5</string>
+    <string name="wss_folder_6">Folder 6</string>
+    <string name="wss_moment_title">Mood &amp; moment</string>
+    <string name="wss_mood_header">Add by mood</string>
+    <string name="wss_situation_header">Music for the moment</string>
+    <string name="wss_no_matches_toast">No matching songs found</string>
+    <string name="wss_moved_toast">Moved to %1$s</string>
+    <string name="wss_no_folder_toast">No folder configured for this button</string>
+    <string name="wss_move_failed_toast">Move failed: %1$s</string>
+    <string name="wss_set_title">WeSongSam</string>
+    <string name="wss_set_desc">Folders, moods, moments and the action log</string>
+    <string name="wss_set_folders_header">Move-to-folder buttons</string>
+    <string name="wss_set_folder_label_hint">Button label</string>
+    <string name="wss_set_pick_folder">Choose folder</string>
+    <string name="wss_set_folder_none">Not configured</string>
+    <string name="wss_set_moods_header">Moods</string>
+    <string name="wss_set_moods_hint">Comma-separated mood keywords</string>
+    <string name="wss_set_situations_header">Situations</string>
+    <string name="wss_set_situations_hint">Comma-separated situations</string>
+    <string name="wss_set_save_lists">Save lists</string>
+    <string name="wss_saved_toast">Saved</string>
+    <string name="wss_set_log_header">Action log</string>
+    <string name="wss_set_log_default">App folder (WeSongSam_actions.log)</string>
+    <string name="wss_set_pick_log_dir">Choose log folder</string>
+    <string name="wss_set_import_header">Import</string>
+    <string name="wss_set_import_desc">Import WeSongSam_phone.json created by the Windows program.</string>
+    <string name="wss_set_import_button">Import WeSongSam_phone.json</string>
+    <string name="wss_import_ok_toast">WeSongSam configuration imported</string>
+    <string name="wss_import_failed_toast">Could not import configuration</string>
+
+    <string-array name="wss_default_situations">
+        <item>sleep</item>
+        <item>relax</item>
+        <item>focus</item>
+        <item>walk</item>
+        <item>dance</item>
+        <item>workout</item>
+    </string-array>
 </resources>

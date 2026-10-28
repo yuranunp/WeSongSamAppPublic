@@ -42,4 +42,10 @@ data class ParsedTags(
     val albumArtistNames: List<String> = listOf(),
     val albumArtistSortNames: List<String> = listOf(),
     val genreNames: List<String> = listOf(),
+    /** WeSongSam mood keywords from TXXX:MOOD. */
+    val wssMoods: List<String> = listOf(),
+    /** WeSongSam BPM value from TXXX:BPM. */
+    val wssBpm: Int? = null,
+    /** WeSongSam energy level from TXXX:ENERGY. */
+    val wssEnergy: Int? = null,
 )

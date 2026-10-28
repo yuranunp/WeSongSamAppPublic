@@ -239,6 +239,30 @@ internal fun Metadata.albumArtistSortNames() =
 // Genre
 internal fun Metadata.genreNames() = xiph["GENRE"] ?: mp4["©gen"] ?: mp4["gnre"] ?: id3v2["TCON"]
 
+// WeSongSam custom tags, written by the WeSongSam Windows program as TXXX frames.
+// MOOD may contain multiple keywords separated by semicolons.
+internal fun Metadata.wssMoods(): List<String> {
+    val raw =
+        (xiph["MOOD"] ?: id3v2["TXXX:MOOD"] ?: mp4["----:COM.APPLE.ITUNES:MOOD"])
+            ?.firstOrNull()
+            ?: return listOf()
+    return raw.split(';').map { it.trim() }.filter { it.isNotEmpty() }
+}
+
+internal fun Metadata.wssBpm(): Int? =
+    (xiph["BPM"] ?: id3v2["TXXX:BPM"] ?: id3v2["TBPM"] ?: mp4["tmpo"])
+        ?.firstOrNull()
+        ?.trim()
+        ?.toFloatOrNull()
+        ?.toInt()
+
+internal fun Metadata.wssEnergy(): Int? =
+    (xiph["ENERGY"] ?: id3v2["TXXX:ENERGY"] ?: mp4["----:COM.APPLE.ITUNES:ENERGY"])
+        ?.firstOrNull()
+        ?.trim()
+        ?.removeSuffix("%")
+        ?.toIntOrNull()
+
 // Compilation Flag
 internal fun Metadata.isCompilation() =
     // TCMP is a non-standard itunes extension

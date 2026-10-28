@@ -322,6 +322,14 @@ interface Song : Music {
      * [Genre] name was specified in the metadata.
      */
     val genres: List<Genre>
+    /**
+     * WeSongSam mood keywords from the TXXX:MOOD tag. Empty if the tag is absent.
+     */
+    val wssMoods: List<String>
+    /** WeSongSam BPM value from the TXXX:BPM tag. Null if the tag is absent or unparsable. */
+    val wssBpm: Int?
+    /** WeSongSam energy level from the TXXX:ENERGY tag. Null if the tag is absent. */
+    val wssEnergy: Int?
 }
 
 /**

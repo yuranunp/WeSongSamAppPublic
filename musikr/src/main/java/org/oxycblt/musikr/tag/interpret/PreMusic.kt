@@ -55,6 +55,12 @@ internal data class PreSong(
     val preAlbum: PreAlbum,
     val preArtists: List<PreArtist>,
     val preGenres: List<PreGenre>,
+    /** WeSongSam mood keywords (TXXX:MOOD). */
+    val wssMoods: List<String>,
+    /** WeSongSam BPM value (TXXX:BPM). */
+    val wssBpm: Int?,
+    /** WeSongSam energy level (TXXX:ENERGY). */
+    val wssEnergy: Int?,
 )
 
 internal data class PreAlbum(

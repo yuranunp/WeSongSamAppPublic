@@ -141,6 +141,66 @@
 
         </android.widget.LinearLayout>
 
+        <!-- WeSongSam move-to-folder buttons (1-6) -->
+        <android.widget.LinearLayout
+            android:id="@+id/widget_wss_controls"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/spacing_mid_medium"
+            android:paddingEnd="@dimen/spacing_mid_medium"
+            android:paddingBottom="@dimen/spacing_medium">
+
+            <android.widget.ImageButton
+                android:id="@+id/widget_wss_move_1"
+                style="@style/Widget.Auxio.MaterialButton.AppWidget"
+                android:layout_width="@dimen/size_touchable_small"
+                android:layout_height="@dimen/size_touchable_small"
+                android:contentDescription="@string/wss_folder_1"
+                android:src="@drawable/ic_wss_move_1_24" />
+
+            <android.widget.ImageButton
+                android:id="@+id/widget_wss_move_2"
+                style="@style/Widget.Auxio.MaterialButton.AppWidget"
+                android:layout_width="@dimen/size_touchable_small"
+                android:layout_height="@dimen/size_touchable_small"
+                android:contentDescription="@string/wss_folder_2"
+                android:src="@drawable/ic_wss_move_2_24" />
+
+            <android.widget.ImageButton
+                android:id="@+id/widget_wss_move_3"
+                style="@style/Widget.Auxio.MaterialButton.AppWidget"
+                android:layout_width="@dimen/size_touchable_small"
+                android:layout_height="@dimen/size_touchable_small"
+                android:contentDescription="@string/wss_folder_3"
+                android:src="@drawable/ic_wss_move_3_24" />
+
+            <android.widget.ImageButton
+                android:id="@+id/widget_wss_move_4"
+                style="@style/Widget.Auxio.MaterialButton.AppWidget"
+                android:layout_width="@dimen/size_touchable_small"
+                android:layout_height="@dimen/size_touchable_small"
+                android:contentDescription="@string/wss_folder_4"
+                android:src="@drawable/ic_wss_move_4_24" />
+
+            <android.widget.ImageButton
+                android:id="@+id/widget_wss_move_5"
+                style="@style/Widget.Auxio.MaterialButton.AppWidget"
+                android:layout_width="@dimen/size_touchable_small"
+                android:layout_height="@dimen/size_touchable_small"
+                android:contentDescription="@string/wss_folder_5"
+                android:src="@drawable/ic_wss_move_5_24" />
+
+            <android.widget.ImageButton
+                android:id="@+id/widget_wss_move_6"
+                style="@style/Widget.Auxio.MaterialButton.AppWidget"
+                android:layout_width="@dimen/size_touchable_small"
+                android:layout_height="@dimen/size_touchable_small"
+                android:contentDescription="@string/wss_folder_6"
+                android:src="@drawable/ic_wss_move_6_24" />
+
+        </android.widget.LinearLayout>
+
     </android.widget.LinearLayout>
 
 </android.widget.RelativeLayout>

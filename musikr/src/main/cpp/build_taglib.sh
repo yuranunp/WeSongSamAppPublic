@@ -24,17 +24,17 @@ build_for_arch() {
   local DST_DIR=$TAGLIB_DST_DIR/$ARCH
   local PKG_DIR=$TAGLIB_PKG_DIR/$ARCH
 
-  cd $TAGLIB_SRC_DIR
-  cmake -B $DST_DIR -DANDROID_NDK_PATH=${NDK_PATH} -DCMAKE_TOOLCHAIN_FILE=${NDK_TOOLCHAIN}  \
+  cd "$TAGLIB_SRC_DIR"
+  cmake -G Ninja -B "$DST_DIR" -DANDROID_NDK_PATH="${NDK_PATH}" -DCMAKE_TOOLCHAIN_FILE="$NDK_TOOLCHAIN"  \
     -DANDROID_ABI=$ARCH -DBUILD_SHARED_LIBS=OFF -DVISIBILITY_HIDDEN=ON -DBUILD_TESTING=OFF \
     -DBUILD_EXAMPLES=OFF -DBUILD_BINDINGS=OFF -DWITH_ZLIB=OFF -DCMAKE_BUILD_TYPE=Release \
     -DWITH_APE=OFF -DWITH_ASF=OFF -DWITH_ASF=OFF -DWITH_MOD=OFF -DWITH_SHORTEN=OFF \
     -DWITH_TRUEAUDIO=OFF -DCMAKE_CXX_FLAGS="-fPIC"
   # Try to parallelize the build
-  cmake --build $DST_DIR --config Release -j$(nproc)
-  cd $WORKING_DIR
+  cmake --build "$DST_DIR" --config Release -j$(nproc)
+  cd "$WORKING_DIR"
 
-  cmake --install $DST_DIR --config Release --prefix $PKG_DIR --strip
+  cmake --install "$DST_DIR" --config Release --prefix "$PKG_DIR" --strip
 }
 
 build_for_arch $X86_ARCH

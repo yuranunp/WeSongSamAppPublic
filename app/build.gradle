@@ -94,6 +94,7 @@ dependencies {
 
     // General
     implementation "androidx.core:core-ktx:$core_version"
+    implementation "androidx.documentfile:documentfile:1.0.1"
     implementation "androidx.appcompat:appcompat:1.8.0"
     implementation "androidx.activity:activity-ktx:1.13.0"
     // good news: androidx-fragment 1.8.9's predictive back no longer crashes when you navigate

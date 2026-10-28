@@ -253,6 +253,7 @@ class WidgetProvider : AppWidgetProvider() {
             .setupBackground(uiSettings)
             .setupPlaybackState(context, state)
             .setupFullControls(context, state)
+            .setupWeSongSamControls(context)
 
     /**
      * Set up the control bar in a [RemoteViews] layout that contains one. This is a kind of
@@ -465,6 +466,38 @@ class WidgetProvider : AppWidgetProvider() {
             }
         setImageViewResource(R.id.widget_shuffle, shuffleRes)
 
+        return this
+    }
+
+    /**
+     * Set up the WeSongSam move-to-folder buttons in a [RemoteViews] layout that contains them.
+     * No-op on layouts without the row.
+     */
+    private fun RemoteViews.setupWeSongSamControls(context: Context): RemoteViews {
+        val actions =
+            listOf(
+                PlaybackActions.ACTION_WSS_MOVE_1,
+                PlaybackActions.ACTION_WSS_MOVE_2,
+                PlaybackActions.ACTION_WSS_MOVE_3,
+                PlaybackActions.ACTION_WSS_MOVE_4,
+                PlaybackActions.ACTION_WSS_MOVE_5,
+                PlaybackActions.ACTION_WSS_MOVE_6,
+            )
+        val ids =
+            intArrayOf(
+                R.id.widget_wss_move_1,
+                R.id.widget_wss_move_2,
+                R.id.widget_wss_move_3,
+                R.id.widget_wss_move_4,
+                R.id.widget_wss_move_5,
+                R.id.widget_wss_move_6,
+            )
+        for (i in ids.indices) {
+            setOnClickPendingIntent(
+                ids[i],
+                context.newBroadcastPendingIntent(actions[i]),
+            )
+        }
         return this
     }
 

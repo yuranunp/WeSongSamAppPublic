@@ -27,6 +27,7 @@ import androidx.core.content.ContextCompat
 import javax.inject.Inject
 import org.oxycblt.auxio.playback.PlaybackSettings
 import org.oxycblt.auxio.playback.state.PlaybackStateManager
+import org.oxycblt.auxio.wesongsam.WeSongSamActionHandler
 import org.oxycblt.auxio.widgets.WidgetComponent
 import org.oxycblt.auxio.widgets.WidgetProvider
 import timber.log.Timber as L
@@ -41,6 +42,7 @@ private constructor(
     private val playbackManager: PlaybackStateManager,
     private val playbackSettings: PlaybackSettings,
     private val widgetComponent: WidgetComponent,
+    private val wesongsamActionHandler: WeSongSamActionHandler,
     private val onExitRequested: () -> Unit,
 ) : BroadcastReceiver() {
     private var initialHeadsetPlugEventHandled = false
@@ -50,6 +52,7 @@ private constructor(
     constructor(
         private val playbackManager: PlaybackStateManager,
         private val playbackSettings: PlaybackSettings,
+        private val wesongsamActionHandler: WeSongSamActionHandler,
     ) {
         fun create(
             context: Context,
@@ -61,6 +64,7 @@ private constructor(
                 playbackManager,
                 playbackSettings,
                 widgetComponent,
+                wesongsamActionHandler,
                 onExitRequested,
             )
     }
@@ -129,6 +133,18 @@ private constructor(
                 L.d("Received exit event")
                 onExitRequested()
             }
+            PlaybackActions.ACTION_WSS_MOVE_1 ->
+                wesongsamActionHandler.moveToFolder(1, playbackManager)
+            PlaybackActions.ACTION_WSS_MOVE_2 ->
+                wesongsamActionHandler.moveToFolder(2, playbackManager)
+            PlaybackActions.ACTION_WSS_MOVE_3 ->
+                wesongsamActionHandler.moveToFolder(3, playbackManager)
+            PlaybackActions.ACTION_WSS_MOVE_4 ->
+                wesongsamActionHandler.moveToFolder(4, playbackManager)
+            PlaybackActions.ACTION_WSS_MOVE_5 ->
+                wesongsamActionHandler.moveToFolder(5, playbackManager)
+            PlaybackActions.ACTION_WSS_MOVE_6 ->
+                wesongsamActionHandler.moveToFolder(6, playbackManager)
             WidgetProvider.ACTION_WIDGET_UPDATE -> {
                 L.d("Received widget update event")
                 widgetComponent.update()
@@ -168,6 +184,12 @@ private constructor(
                 addAction(PlaybackActions.ACTION_PLAY_PAUSE)
                 addAction(PlaybackActions.ACTION_SKIP_NEXT)
                 addAction(PlaybackActions.ACTION_EXIT)
+                addAction(PlaybackActions.ACTION_WSS_MOVE_1)
+                addAction(PlaybackActions.ACTION_WSS_MOVE_2)
+                addAction(PlaybackActions.ACTION_WSS_MOVE_3)
+                addAction(PlaybackActions.ACTION_WSS_MOVE_4)
+                addAction(PlaybackActions.ACTION_WSS_MOVE_5)
+                addAction(PlaybackActions.ACTION_WSS_MOVE_6)
                 addAction(WidgetProvider.ACTION_WIDGET_UPDATE)
             }
     }

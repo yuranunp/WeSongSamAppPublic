@@ -72,6 +72,10 @@ internal class SongImpl(private val handle: SongCore) : Song {
     override val genres: List<Genre>
         get() = handle.resolveGenres()
 
+    override val wssMoods = preSong.wssMoods
+    override val wssBpm = preSong.wssBpm
+    override val wssEnergy = preSong.wssEnergy
+
     private val hashCode = 31 * uid.hashCode() + preSong.hashCode()
 
     override fun hashCode() = hashCode

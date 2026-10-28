@@ -20,6 +20,9 @@ package org.oxycblt.auxio.playback
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import android.content.Context
+import android.content.Intent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
@@ -59,6 +62,7 @@ import timber.log.Timber as L
 class PlaybackViewModel
 @Inject
 constructor(
+    @ApplicationContext private val context: Context,
     private val playbackManager: PlaybackStateManager,
     private val playbackSettings: PlaybackSettings,
     private val commandFactory: PlaybackCommand.Factory,
@@ -224,6 +228,26 @@ constructor(
     fun shuffleAll() {
         L.d("Shuffling all songs")
         playFromAllImpl(null, ShuffleMode.ON)
+    }
+
+    /**
+     * Move the currently playing song's file into WeSongSam folder [button] (1-6). Playback is not
+     * interrupted; the library is re-indexed afterwards by the handler.
+     */
+    fun moveToFolder(button: Int) {
+        L.d("WeSongSam move-to-folder requested: button $button")
+        val intent =
+            Intent(
+                when (button) {
+                    1 -> org.oxycblt.auxio.playback.service.PlaybackActions.ACTION_WSS_MOVE_1
+                    2 -> org.oxycblt.auxio.playback.service.PlaybackActions.ACTION_WSS_MOVE_2
+                    3 -> org.oxycblt.auxio.playback.service.PlaybackActions.ACTION_WSS_MOVE_3
+                    4 -> org.oxycblt.auxio.playback.service.PlaybackActions.ACTION_WSS_MOVE_4
+                    5 -> org.oxycblt.auxio.playback.service.PlaybackActions.ACTION_WSS_MOVE_5
+                    else -> org.oxycblt.auxio.playback.service.PlaybackActions.ACTION_WSS_MOVE_6
+                }
+            )
+        context.sendBroadcast(intent)
     }
 
     /**

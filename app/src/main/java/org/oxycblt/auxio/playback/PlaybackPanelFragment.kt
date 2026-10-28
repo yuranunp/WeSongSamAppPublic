@@ -57,6 +57,7 @@ import org.oxycblt.auxio.util.recycler
 import org.oxycblt.auxio.util.showToast
 import org.oxycblt.auxio.util.smoothScrollByPageTo
 import org.oxycblt.auxio.util.systemBarInsetsCompat
+import org.oxycblt.auxio.wesongsam.WeSongSamMomentDialog
 import org.oxycblt.musikr.MusicParent
 import org.oxycblt.musikr.Song
 import timber.log.Timber as L
@@ -167,6 +168,21 @@ class PlaybackPanelFragment :
         }
         binding.playbackSkipNext.setOnClickListener { playbackModel.next() }
         binding.playbackShuffle.setOnClickListener { playbackModel.toggleShuffled() }
+
+        // WeSongSam move-to-folder buttons (1-6).
+        val wssMoveButtons =
+            listOf(
+                binding.playbackWssMove1,
+                binding.playbackWssMove2,
+                binding.playbackWssMove3,
+                binding.playbackWssMove4,
+                binding.playbackWssMove5,
+                binding.playbackWssMove6,
+            )
+        wssMoveButtons.forEachIndexed { index, button ->
+            button?.setOnClickListener { playbackModel.moveToFolder(index + 1) }
+        }
+
         binding.playbackMore?.setOnClickListener {
             playbackModel.song.value?.let {
                 listModel.openMenu(R.menu.playback_song, it, PlaySong.ByItself)
@@ -230,6 +246,12 @@ class PlaybackPanelFragment :
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_wss_moment) {
+            // Open the WeSongSam "Add by mood / Music for the moment" picker.
+            L.d("Opening WeSongSam moment picker")
+            WeSongSamMomentDialog().show(parentFragmentManager, TAG_WSS_MOMENT)
+            return true
+        }
         if (item.itemId == R.id.action_open_equalizer) {
             // Launch the system equalizer app, if possible.
             L.d("Launching equalizer")
@@ -396,5 +418,9 @@ class PlaybackPanelFragment :
             Direction.FORWARDS -> playbackModel.stepForward()
             Direction.BACKWARDS -> playbackModel.stepBackwards()
         }
+    }
+
+    private companion object {
+        const val TAG_WSS_MOMENT = "TAG_WSS_MOMENT"
     }
 }

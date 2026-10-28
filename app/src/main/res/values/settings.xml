@@ -5,6 +5,7 @@
     <string name="set_key_personalize" translatable="false">auxio_personalize</string>
     <string name="set_key_music" translatable="false">auxio_music</string>
     <string name="set_key_audio" translatable="false">auxio_audio</string>
+    <string name="set_key_wesongsam" translatable="false">wesongsam</string>
 
     <string name="set_key_theme" translatable="false">KEY_THEME2</string>
     <string name="set_key_black_theme" translatable="false">KEY_BLACK_THEME</string>

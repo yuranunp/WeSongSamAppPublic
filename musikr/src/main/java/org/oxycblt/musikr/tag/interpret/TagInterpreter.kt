@@ -153,6 +153,9 @@ private class TagInterpreterImpl(private val interpretation: Interpretation) : T
             preAlbum = preAlbum,
             preArtists = rawArtists,
             preGenres = rawGenres,
+            wssMoods = song.tags.wssMoods,
+            wssBpm = song.tags.wssBpm,
+            wssEnergy = song.tags.wssEnergy,
             cover = song.cover,
         )
     }

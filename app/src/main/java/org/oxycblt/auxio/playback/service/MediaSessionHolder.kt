@@ -361,6 +361,36 @@ private constructor(
                 .build()
         state.addCustomAction(shuffleAction)
 
+        // WeSongSam move-to-folder actions (buttons 1-6).
+        val wssLabels =
+            listOf(
+                context.getString(R.string.wss_folder_1),
+                context.getString(R.string.wss_folder_2),
+                context.getString(R.string.wss_folder_3),
+                context.getString(R.string.wss_folder_4),
+                context.getString(R.string.wss_folder_5),
+                context.getString(R.string.wss_folder_6),
+            )
+        val wssActions =
+            listOf(
+                PlaybackActions.ACTION_WSS_MOVE_1,
+                PlaybackActions.ACTION_WSS_MOVE_2,
+                PlaybackActions.ACTION_WSS_MOVE_3,
+                PlaybackActions.ACTION_WSS_MOVE_4,
+                PlaybackActions.ACTION_WSS_MOVE_5,
+                PlaybackActions.ACTION_WSS_MOVE_6,
+            )
+        wssActions.forEachIndexed { index, action ->
+            state.addCustomAction(
+                PlaybackStateCompat.CustomAction.Builder(
+                        action,
+                        wssLabels[index],
+                        RES_WSS_MOVE_ICONS[index],
+                    )
+                    .build()
+            )
+        }
+
         mediaSession.setPlaybackState(state.build())
     }
 
@@ -380,6 +410,17 @@ private constructor(
 
     companion object {
         private val emptyMetadata = MediaMetadataCompat.Builder().build()
+
+        /** Icons for the WeSongSam move-to-folder custom actions, indexed by button number. */
+        private val RES_WSS_MOVE_ICONS =
+            intArrayOf(
+                R.drawable.ic_wss_move_1_24,
+                R.drawable.ic_wss_move_2_24,
+                R.drawable.ic_wss_move_3_24,
+                R.drawable.ic_wss_move_4_24,
+                R.drawable.ic_wss_move_5_24,
+                R.drawable.ic_wss_move_6_24,
+            )
     }
 }
 
@@ -411,6 +452,12 @@ private class PlaybackNotification(
             buildAction(context, PlaybackActions.ACTION_SKIP_NEXT, R.drawable.ic_skip_next_24)
         )
         addAction(buildShuffleAction(context, false))
+        addAction(buildAction(context, PlaybackActions.ACTION_WSS_MOVE_1, R.drawable.ic_wss_move_1_24))
+        addAction(buildAction(context, PlaybackActions.ACTION_WSS_MOVE_2, R.drawable.ic_wss_move_2_24))
+        addAction(buildAction(context, PlaybackActions.ACTION_WSS_MOVE_3, R.drawable.ic_wss_move_3_24))
+        addAction(buildAction(context, PlaybackActions.ACTION_WSS_MOVE_4, R.drawable.ic_wss_move_4_24))
+        addAction(buildAction(context, PlaybackActions.ACTION_WSS_MOVE_5, R.drawable.ic_wss_move_5_24))
+        addAction(buildAction(context, PlaybackActions.ACTION_WSS_MOVE_6, R.drawable.ic_wss_move_6_24))
 
         setStyle(
             MediaStyle(this).setMediaSession(sessionToken).setShowActionsInCompactView(1, 2, 3)

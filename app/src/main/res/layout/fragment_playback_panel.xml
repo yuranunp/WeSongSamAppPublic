@@ -132,4 +132,72 @@
 
     </org.oxycblt.auxio.playback.ui.ForcedLTRFrameLayout>
 
+    <!-- WeSongSam move-to-folder buttons (1-6) -->
+    <LinearLayout
+        android:id="@+id/playback_wss_controls"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_mid_medium"
+        android:layout_marginEnd="@dimen/spacing_mid_medium"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/playback_pager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/playback_pager">
+
+        <ImageButton
+            android:id="@+id/playback_wss_move_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/wss_folder_1"
+            android:src="@drawable/ic_wss_move_1_24"
+            app:tint="?attr/colorControlNormal" />
+
+        <ImageButton
+            android:id="@+id/playback_wss_move_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/wss_folder_2"
+            android:src="@drawable/ic_wss_move_2_24"
+            app:tint="?attr/colorControlNormal" />
+
+        <ImageButton
+            android:id="@+id/playback_wss_move_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/wss_folder_3"
+            android:src="@drawable/ic_wss_move_3_24"
+            app:tint="?attr/colorControlNormal" />
+
+        <ImageButton
+            android:id="@+id/playback_wss_move_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/wss_folder_4"
+            android:src="@drawable/ic_wss_move_4_24"
+            app:tint="?attr/colorControlNormal" />
+
+        <ImageButton
+            android:id="@+id/playback_wss_move_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/wss_folder_5"
+            android:src="@drawable/ic_wss_move_5_24"
+            app:tint="?attr/colorControlNormal" />
+
+        <ImageButton
+            android:id="@+id/playback_wss_move_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/wss_folder_6"
+            android:src="@drawable/ic_wss_move_6_24"
+            app:tint="?attr/colorControlNormal" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
