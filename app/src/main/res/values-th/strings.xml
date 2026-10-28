@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="info_app_desc">แอปเล่นเพลงที่ใช้งานง่ายและมีเหตุผลสำหรับ Android</string>
+    <string name="info_app_desc">WeSongSam มือถือ — แอปเล่นเพลงที่ใช้งานง่ายสำหรับ Android</string>
     <string name="lbl_indexer">โหลดเพลง</string>
     <string name="lbl_indexing">กำลังโหลดเพลง</string>
     <string name="lbl_observing">กำลังเฝ้าสังเกตคลังเพลง</string>
@@ -136,4 +136,7 @@
     <string name="lng_empty_artists">ศิลปินของคุณจะปรากฏที่นี่</string>
     <string name="lng_empty_genres">ประเภทเพลงของคุณจะปรากฏที่นี่</string>
     <string name="lng_empty_playlists">เพลย์ลิสต์ของคุณจะปรากฏที่นี่</string>
+    <string name="lbl_notice">ประกาศโอเพนซอร์ส</string>
+    <string name="lng_notice">WeSongSam Mobile สร้างจาก Auxio โดย OxygenCobalt (https://github.com/OxygenCobalt/Auxio) เผยแพร่ภายใต้สัญญาอนุญาต GNU General Public License v3 การเปลี่ยนแปลงในฟอร์กนี้: เปลี่ยนชื่อแอปและ application ID, ไอคอนแอปใหม่, อัปเดตหน้าเกี่ยวกับ, README และ NOTICE ดูรายการทั้งหมดได้ใน NOTICE.md ในที่เก็บซอร์สโค้ด</string>
+    <string name="lbl_fork_source">ซอร์สโค้ด (ฟอร์กนี้)</string>
 </resources>

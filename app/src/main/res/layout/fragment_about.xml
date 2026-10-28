@@ -399,6 +399,45 @@
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_medium">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/spacing_tiny">
+
+                    <TextView
+                        android:id="@+id/about_notice"
+                        style="@style/Widget.Auxio.TextView.Header"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lbl_notice" />
+
+                    <TextView
+                        android:id="@+id/about_notice_text"
+                        style="@style/Widget.Auxio.TextView.Icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lng_notice"
+                        android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+                    <TextView
+                        android:id="@+id/about_fork_source"
+                        style="@style/Widget.Auxio.TextView.Icon.Clickable"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lbl_fork_source"
+                        app:drawableStartCompat="@drawable/ic_code_24"
+                        app:drawableTint="?attr/colorControlNormal" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

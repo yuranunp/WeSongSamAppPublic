@@ -496,4 +496,8 @@
         <item quantity="one">%d second</item>
         <item quantity="other">%d seconds</item>
     </plurals>
+    <string name="lbl_notice">Open-source notice</string>
+    <string name="lng_notice">WeSongSam Mobile is based on Auxio by OxygenCobalt (https://github.com/OxygenCobalt/Auxio), licensed under the GNU General Public License v3. Changes in this fork: renamed app and application ID, new launcher icon, updated About screen, README and NOTICE. See NOTICE.md in the source repository for the full list.</string>
+    <string name="lbl_fork_source">Source code (this fork)</string>
+    <string name="lbl_fork_url">https://github.com/yuranunp/WeSongSamAppPublic</string>
 </resources>

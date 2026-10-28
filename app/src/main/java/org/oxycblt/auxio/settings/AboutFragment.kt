@@ -68,6 +68,7 @@ class AboutFragment : ViewBindingFragment<FragmentAboutBinding>() {
         }
         binding.aboutVersion.text = BuildConfig.VERSION_NAME
         binding.aboutCode.setOnClickListener { requireContext().openInBrowser(LINK_SOURCE) }
+        binding.aboutForkSource.setOnClickListener { requireContext().openInBrowser(LINK_FORK_SOURCE) }
         binding.aboutWiki.setOnClickListener { requireContext().openInBrowser(LINK_WIKI) }
         binding.aboutLicenses.setOnClickListener { requireContext().openInBrowser(LINK_LICENSES) }
         binding.aboutProfile.setOnClickListener { requireContext().openInBrowser(LINK_PROFILE) }
@@ -123,6 +124,7 @@ class AboutFragment : ViewBindingFragment<FragmentAboutBinding>() {
 
     private companion object {
         const val LINK_SOURCE = "https://github.com/OxygenCobalt/Auxio"
+        const val LINK_FORK_SOURCE = "https://github.com/yuranunp/WeSongSamAppPublic"
         const val LINK_WIKI = "$LINK_SOURCE/wiki"
         const val LINK_LICENSES = "$LINK_WIKI/Licenses"
         const val LINK_NEW_ISSUE = "$LINK_SOURCE/issues/new"
