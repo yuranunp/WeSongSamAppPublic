@@ -169,8 +169,14 @@
     <string name="wss_set_log_default">โฟลเดอร์ของแอป (WeSongSam_actions.log)</string>
     <string name="wss_set_pick_log_dir">เลือกโฟลเดอร์บันทึก</string>
     <string name="wss_set_import_header">นำเข้า</string>
-    <string name="wss_set_import_desc">นำเข้าไฟล์ WeSongSam_phone.json ที่สร้างจากโปรแกรมบนวินโดวส์</string>
-    <string name="wss_set_import_button">นำเข้า WeSongSam_phone.json</string>
+    <string name="wss_set_import_desc">นำเข้าไฟล์ WeSongSam_profile.txt หรือ WeSongSam_phone.json ที่สร้างจากโปรแกรมบนวินโดวส์</string>
+    <string name="wss_set_import_button">นำเข้าโปรไฟล์หรือ WeSongSam_phone.json</string>
+    <string name="wss_set_sync_header">ใช้ร่วมกับ Windows</string>
+    <string name="wss_set_sync_desc">ใช้การย้ายและโปรไฟล์ร่วมกับปลั๊กอินบน Windows ผ่านโฟลเดอร์ที่ใช้ร่วมกัน นำ log การย้ายมาใช้เพื่อย้ายเพลงเดียวกันเข้าโฟลเดอร์ของมือถือเครื่องนี้</string>
+    <string name="wss_set_apply_log">นำ log การย้ายมาใช้…</string>
+    <string name="wss_set_export_profile">ส่งออกโปรไฟล์…</string>
+    <string name="wss_export_ok_toast">บันทึกโปรไฟล์แล้ว</string>
+    <string name="wss_apply_log_result">ย้าย %1$d, อยู่แล้ว %2$d, ไม่พบ %3$d, ชื่อซ้ำหลายไฟล์ %4$d, ไม่ได้ตั้งโฟลเดอร์ %5$d</string>
     <string name="wss_import_ok_toast">นำเข้าการตั้งค่า WeSongSam แล้ว</string>
     <string name="wss_import_failed_toast">นำเข้าการตั้งค่าไม่สำเร็จ</string>
     <string name="wss_mood_added_toast">เพิ่มเข้าเพลย์ลิสต์ %1$s แล้ว</string>

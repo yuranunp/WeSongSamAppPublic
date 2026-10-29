@@ -33,6 +33,9 @@ sealed interface MoveResult {
     /** The file was moved into the target folder. */
     data object Done : MoveResult
 
+    /** The song is already in the target folder. */
+    data object AlreadyThere : MoveResult
+
     /** The target folder is not configured or cannot be written. */
     data object NoFolder : MoveResult
 
@@ -101,7 +104,7 @@ constructor(
                 DocumentsContract.getDocumentId(sourceUri).substringBeforeLast('/') ==
                     DocumentsContract.getTreeDocumentId(treeUri)
         ) {
-            return MoveResult.Done
+            return MoveResult.AlreadyThere
         }
         return try {
             val displayName = sourceUri.lastPathSegment?.substringAfterLast('/') ?: name

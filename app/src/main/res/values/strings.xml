@@ -530,8 +530,14 @@
     <string name="wss_set_log_default">App folder (WeSongSam_actions.log)</string>
     <string name="wss_set_pick_log_dir">Choose log folder</string>
     <string name="wss_set_import_header">Import</string>
-    <string name="wss_set_import_desc">Import WeSongSam_phone.json created by the Windows program.</string>
-    <string name="wss_set_import_button">Import WeSongSam_phone.json</string>
+    <string name="wss_set_import_desc">Import a WeSongSam_profile.txt or WeSongSam_phone.json file created by the Windows program.</string>
+    <string name="wss_set_import_button">Import profile or WeSongSam_phone.json</string>
+    <string name="wss_set_sync_header">Share with Windows</string>
+    <string name="wss_set_sync_desc">Moves and the profile can be shared with the Windows plug-in through a shared folder. Apply a move log to move the same songs into this phone\'s folders.</string>
+    <string name="wss_set_apply_log">Apply move log…</string>
+    <string name="wss_set_export_profile">Export profile…</string>
+    <string name="wss_export_ok_toast">Profile saved</string>
+    <string name="wss_apply_log_result">Moved %1$d, already there %2$d, not found %3$d, ambiguous %4$d, no folder %5$d</string>
     <string name="wss_import_ok_toast">WeSongSam configuration imported</string>
     <string name="wss_import_failed_toast">Could not import configuration</string>
     <string name="wss_mood_added_toast">Added to %1$s</string>

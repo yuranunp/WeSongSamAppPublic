@@ -130,6 +130,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_large"
+            android:text="@string/wss_set_sync_header"
+            android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/wss_set_sync_desc"
+            android:textAppearance="?attr/textAppearanceBodySmall" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/wss_apply_log"
+            style="@style/Widget.Auxio.Button.Secondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:text="@string/wss_set_apply_log" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/wss_export_profile"
+            style="@style/Widget.Auxio.Button.Secondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:text="@string/wss_set_export_profile" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
             android:text="@string/wss_set_import_header"
             android:textAppearance="?attr/textAppearanceTitleMedium" />
 

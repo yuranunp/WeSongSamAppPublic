@@ -30,15 +30,20 @@ import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.edit
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.oxycblt.auxio.R
 import org.oxycblt.auxio.databinding.FragmentWesongsamSettingsBinding
 import org.oxycblt.auxio.databinding.ItemWssFolderBinding
@@ -54,9 +59,13 @@ import timber.log.Timber as L
 class WeSongSamSettingsFragment : Fragment() {
     @Inject lateinit var wesongsamSettings: WeSongSamSettingsImpl
 
+    @Inject lateinit var sync: WeSongSamSync
+
     private var folderLauncher: ActivityResultLauncher<Uri?>? = null
     private var logLauncher: ActivityResultLauncher<Uri?>? = null
     private var jsonLauncher: ActivityResultLauncher<Intent>? = null
+    private var applyLogLauncher: ActivityResultLauncher<Array<String>>? = null
+    private var exportProfileLauncher: ActivityResultLauncher<String>? = null
     private var pendingFolderIndex = -1
 
     override fun onCreateView(
@@ -98,6 +107,18 @@ class WeSongSamSettingsFragment : Fragment() {
                     importJson(binding, uri)
                 }
             }
+        applyLogLauncher =
+            registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+                if (uri != null) {
+                    applyLog(binding, uri)
+                }
+            }
+        exportProfileLauncher =
+            registerForActivityResult(ActivityResultContracts.CreateDocument("text/plain")) { uri ->
+                if (uri != null) {
+                    exportProfile(binding, uri)
+                }
+            }
 
         rebuildFolderRows(binding)
         rebuildButtonRows(binding)
@@ -124,6 +145,12 @@ class WeSongSamSettingsFragment : Fragment() {
             requireContext().showToast(R.string.wss_saved_toast)
         }
         binding.wssPickLogDir.setOnClickListener { logLauncher?.launch(null as Uri?) }
+        binding.wssApplyLog.setOnClickListener {
+            applyLogLauncher?.launch(arrayOf("*/*"))
+        }
+        binding.wssExportProfile.setOnClickListener {
+            exportProfileLauncher?.launch("WeSongSam_profile.txt")
+        }
         binding.wssImportJson.setOnClickListener {
             val intent =
                 Intent(Intent.ACTION_OPEN_DOCUMENT)
@@ -234,19 +261,85 @@ class WeSongSamSettingsFragment : Fragment() {
                     .openInputStream(uri)
                     ?.bufferedReader()
                     ?.use { it.readText() }
-            if (text != null && wesongsamSettings.importPhoneJson(text)) {
+            val ok =
+                when {
+                    text == null -> false
+                    text.trimStart('﻿', ' ', '\n', '\r').startsWith("{") ->
+                        wesongsamSettings.importPhoneJson(text)
+                    else -> sync.importProfile(text)
+                }
+            if (ok) {
                 requireContext().showToast(R.string.wss_import_ok_toast)
                 rebuildFolderRows(binding)
+                rebuildButtonRows(binding)
                 binding.wssMoodsInput.setText(wesongsamSettings.moods.joinToString(", ") { it.name })
                 binding.wssSituationsInput.setText(
                     wesongsamSettings.situations.joinToString(", ") { it.name }
                 )
+                val multiPress = wesongsamSettings.multiPressMs
+                binding.wssMultiPress.value = multiPress.toFloat()
+                binding.wssMultiPressLabel.text =
+                    getString(R.string.wss_set_multi_press, multiPress)
                 updateLogSummary(binding)
             } else {
                 requireContext().showToast(R.string.wss_import_failed_toast)
             }
         } catch (e: Exception) {
-            L.e("WeSongSam_phone.json import failed", e)
+            L.e("WeSongSam profile import failed", e)
+            requireContext().showToast(R.string.wss_import_failed_toast)
+        }
+    }
+
+    private fun applyLog(binding: FragmentWesongsamSettingsBinding, uri: Uri) {
+        val appContext = requireContext().applicationContext
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val text =
+                    appContext.contentResolver.openInputStream(uri)?.bufferedReader()?.use {
+                        it.readText()
+                    }
+                if (text == null) {
+                    withContext(Dispatchers.Main) {
+                        appContext.showToast(R.string.wss_import_failed_toast)
+                    }
+                    return@launch
+                }
+                val counts = sync.applyLog(text)
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                            appContext,
+                            // The Fragment may be detached by now, so resolve the string on the
+                            // application context instead of this Fragment's resources.
+                            appContext.getString(
+                                R.string.wss_apply_log_result,
+                                counts.moved,
+                                counts.already,
+                                counts.notFound,
+                                counts.ambiguous,
+                                counts.noFolder,
+                            ),
+                            Toast.LENGTH_SHORT,
+                        )
+                        .show()
+                }
+            } catch (e: Exception) {
+                L.e("WeSongSam move log apply failed", e)
+                withContext(Dispatchers.Main) {
+                    appContext.showToast(R.string.wss_import_failed_toast)
+                }
+            }
+        }
+    }
+
+    private fun exportProfile(binding: FragmentWesongsamSettingsBinding, uri: Uri) {
+        try {
+            requireContext()
+                .contentResolver
+                .openOutputStream(uri)
+                ?.use { out -> out.write(sync.exportProfile().toByteArray(Charsets.UTF_8)) }
+            requireContext().showToast(R.string.wss_export_ok_toast)
+        } catch (e: Exception) {
+            L.e("WeSongSam profile export failed", e)
             requireContext().showToast(R.string.wss_import_failed_toast)
         }
     }

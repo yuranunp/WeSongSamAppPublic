@@ -34,15 +34,15 @@ import org.oxycblt.musikr.Song
 import timber.log.Timber as L
 
 /**
- * Appends every WeSongSam action to WeSongSam_actions.log as TSV rows:
+ * Appends every WeSongSam action to WeSongSam_actions_android.log as TSV rows:
  *
  * ```
  * <time>\t<action>\t<source relative path>\t<button 1-4>\t<target folder>
  * ```
  *
  * The log is written to the user-configured log directory (SAF tree Uri) when configured, or
- * otherwise into the app's external files directory. "Import phone move log" in the Windows
- * program consumes the file.
+ * otherwise into the app's external files directory. "Apply move log…" in the Windows plug-in
+ * consumes the file.
  */
 @Singleton
 class WeSongSamActionLog
@@ -100,7 +100,7 @@ constructor(
     }
 
     companion object {
-        const val LOG_FILE_NAME = "WeSongSam_actions.log"
+        const val LOG_FILE_NAME = "WeSongSam_actions_android.log"
 
         /** Action names used in the log. */
         const val ACTION_MOVE = "MOVE_TO_FOLDER"

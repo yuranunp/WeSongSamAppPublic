@@ -138,6 +138,11 @@ constructor(
                             R.string.wss_moved_toast,
                             wesongsamSettings.folders.getOrNull(button - 1)?.label ?: "",
                         )
+                    is MoveResult.AlreadyThere ->
+                        context.getString(
+                            R.string.wss_mood_already_toast,
+                            wesongsamSettings.folders.getOrNull(button - 1)?.label ?: "",
+                        )
                     is MoveResult.NoFolder -> context.getString(R.string.wss_no_folder_toast)
                     is MoveResult.Error ->
                         context.getString(R.string.wss_move_failed_toast, result.message ?: "")
