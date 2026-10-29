@@ -1,0 +1,43 @@
+diff --git a/libraries/decoder_ffmpeg/build.gradle.kts b/libraries/decoder_ffmpeg/build.gradle.kts
+index cee3303..e5230b4 100644
+--- a/libraries/decoder_ffmpeg/build.gradle.kts
++++ b/libraries/decoder_ffmpeg/build.gradle.kts
+@@ -34,20 +34,27 @@ android.externalNativeBuild.cmake.version = "3.21.0+"
+ 
+ val assembleFfmpeg =
+   tasks.register<Exec>("assembleFfmpeg") {
+-    val host =
+-      when {
+-        Os.isFamily(Os.FAMILY_MAC) -> "darwin-x86_64"
+-        Os.isFamily(Os.FAMILY_UNIX) -> "linux-x86_64"
+-        else ->
+-          throw UnsupportedOperationException(
+-            "Building with Windows is not supported. Please use WSL or a unix-based operating system."
+-          )
+-    }
+-
+     val jniDir = project.file("src/main/jni")
+     val libsDir = jniDir.resolve("ffmpeg/android-libs")
++    // Prebuilt per-ABI static libs (built manually) satisfy the build on any host; on
++    // non-Windows hosts the script can still rebuild them from source.
++    val prebuilt = libsDir.exists() && libsDir.list()?.size ?: 0 >= 4
++    val host =
++      if (prebuilt) {
++        "prebuilt"
++      } else {
++        when {
++          Os.isFamily(Os.FAMILY_MAC) -> "darwin-x86_64"
++          Os.isFamily(Os.FAMILY_UNIX) -> "linux-x86_64"
++          else ->
++            throw UnsupportedOperationException(
++              "Building with Windows is not supported. Please use WSL or a unix-based operating system."
++            )
++        }
++      }
++
+     doFirst {
+-      if (libsDir.exists()) {
++      if (prebuilt) {
+         commandLine("true")
+       } else {
+         val ndkDir = androidComponents.sdkComponents.ndkDirectory.get().asFile
