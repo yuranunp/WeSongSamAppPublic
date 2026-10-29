@@ -52,6 +52,21 @@ Build from source with Gradle (requires JDK 21 and the Android SDK):
 
 The debug APK is written to `app/build/outputs/apk/debug/`.
 
+### Building on Windows
+
+The FFmpeg step of the `media` submodule only builds on Linux or macOS. On Windows:
+
+1. Build the FFmpeg libraries for the four ABIs once in WSL with `build_ffmpeg.sh`,
+   as described in `media/libraries/decoder_ffmpeg/README.md`.
+2. Apply the patch that lets Gradle use those prebuilt libraries:
+
+   ```bash
+   git -C media apply ../patches/media-windows-prebuilt-ffmpeg.patch
+   ```
+
+3. Put Git's `usr\bin` on `PATH` (the patched step runs `true`) and use JDK 21, for
+   example the `jbr` folder of Android Studio.
+
 ## License
 
 WeSongSam Mobile is licensed under the
