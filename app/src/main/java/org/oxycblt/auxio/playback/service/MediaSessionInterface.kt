@@ -25,6 +25,7 @@ import android.provider.MediaStore
 import android.support.v4.media.MediaDescriptionCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
+import android.view.KeyEvent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import org.apache.commons.text.similarity.JaroWinklerSimilarity
@@ -37,6 +38,7 @@ import org.oxycblt.auxio.playback.state.PlaybackCommand
 import org.oxycblt.auxio.playback.state.PlaybackStateManager
 import org.oxycblt.auxio.playback.state.RepeatMode
 import org.oxycblt.auxio.playback.state.ShuffleMode
+import org.oxycblt.auxio.wesongsam.WeSongSamMediaButtons
 import org.oxycblt.musikr.Album
 import org.oxycblt.musikr.Artist
 import org.oxycblt.musikr.Genre
@@ -54,6 +56,7 @@ constructor(
     private val playbackManager: PlaybackStateManager,
     private val commandFactory: PlaybackCommand.Factory,
     private val musicRepository: MusicRepository,
+    private val wesongsamButtons: WeSongSamMediaButtons,
 ) : MediaSessionCompat.Callback() {
     private val jaroWinkler = JaroWinklerSimilarity()
 
@@ -126,6 +129,15 @@ constructor(
             }
         val firstAt = playbackManager.queue.indexOfFirst { it.uid == songUid }
         playbackManager.removeQueueItem(firstAt)
+    }
+
+    override fun onMediaButtonEvent(mediaButtonEvent: Intent): Boolean {
+        @Suppress("DEPRECATION")
+        val event = mediaButtonEvent.getParcelableExtra<KeyEvent>(Intent.EXTRA_KEY_EVENT)
+        if (event != null && wesongsamButtons.onKeyEvent(event, playbackManager)) {
+            return true
+        }
+        return super.onMediaButtonEvent(mediaButtonEvent)
     }
 
     override fun onPlay() {

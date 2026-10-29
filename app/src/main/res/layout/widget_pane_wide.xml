@@ -141,7 +141,7 @@
 
         </android.widget.LinearLayout>
 
-        <!-- WeSongSam move-to-folder buttons (1-6) -->
+        <!-- WeSongSam move-to-folder buttons (1-4) -->
         <android.widget.LinearLayout
             android:id="@+id/widget_wss_controls"
             android:layout_width="match_parent"
@@ -182,22 +182,6 @@
                 android:layout_height="@dimen/size_touchable_small"
                 android:contentDescription="@string/wss_folder_4"
                 android:src="@drawable/ic_wss_move_4_24" />
-
-            <android.widget.ImageButton
-                android:id="@+id/widget_wss_move_5"
-                style="@style/Widget.Auxio.MaterialButton.AppWidget"
-                android:layout_width="@dimen/size_touchable_small"
-                android:layout_height="@dimen/size_touchable_small"
-                android:contentDescription="@string/wss_folder_5"
-                android:src="@drawable/ic_wss_move_5_24" />
-
-            <android.widget.ImageButton
-                android:id="@+id/widget_wss_move_6"
-                style="@style/Widget.Auxio.MaterialButton.AppWidget"
-                android:layout_width="@dimen/size_touchable_small"
-                android:layout_height="@dimen/size_touchable_small"
-                android:contentDescription="@string/wss_folder_6"
-                android:src="@drawable/ic_wss_move_6_24" />
 
         </android.widget.LinearLayout>
 

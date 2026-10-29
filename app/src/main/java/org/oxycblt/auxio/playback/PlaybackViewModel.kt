@@ -43,6 +43,7 @@ import org.oxycblt.auxio.playback.state.RepeatMode
 import org.oxycblt.auxio.playback.state.ShuffleMode
 import org.oxycblt.auxio.util.Event
 import org.oxycblt.auxio.util.MutableEvent
+import org.oxycblt.auxio.wesongsam.WeSongSamActionHandler
 import org.oxycblt.musikr.Album
 import org.oxycblt.musikr.Artist
 import org.oxycblt.musikr.Genre
@@ -67,6 +68,7 @@ constructor(
     private val playbackSettings: PlaybackSettings,
     private val commandFactory: PlaybackCommand.Factory,
     private val listSettings: ListSettings,
+    private val wesongsamActionHandler: WeSongSamActionHandler,
 ) : ViewModel(), PlaybackStateManager.Listener, PlaybackSettings.Listener {
     private var lastPositionJob: Job? = null
 
@@ -231,7 +233,7 @@ constructor(
     }
 
     /**
-     * Move the currently playing song's file into WeSongSam folder [button] (1-6). Playback is not
+     * Move the currently playing song's file into WeSongSam folder [button] (1-4). Playback is not
      * interrupted; the library is re-indexed afterwards by the handler.
      */
     fun moveToFolder(button: Int) {
@@ -242,12 +244,15 @@ constructor(
                     1 -> org.oxycblt.auxio.playback.service.PlaybackActions.ACTION_WSS_MOVE_1
                     2 -> org.oxycblt.auxio.playback.service.PlaybackActions.ACTION_WSS_MOVE_2
                     3 -> org.oxycblt.auxio.playback.service.PlaybackActions.ACTION_WSS_MOVE_3
-                    4 -> org.oxycblt.auxio.playback.service.PlaybackActions.ACTION_WSS_MOVE_4
-                    5 -> org.oxycblt.auxio.playback.service.PlaybackActions.ACTION_WSS_MOVE_5
-                    else -> org.oxycblt.auxio.playback.service.PlaybackActions.ACTION_WSS_MOVE_6
+                    else -> org.oxycblt.auxio.playback.service.PlaybackActions.ACTION_WSS_MOVE_4
                 }
             )
         context.sendBroadcast(intent)
+    }
+
+    /** Add the playing song to WeSongSam mood playlist [button] (1-3). */
+    fun addToMoodPlaylist(button: Int) {
+        wesongsamActionHandler.addToMoodPlaylist(button, playbackManager)
     }
 
     /**

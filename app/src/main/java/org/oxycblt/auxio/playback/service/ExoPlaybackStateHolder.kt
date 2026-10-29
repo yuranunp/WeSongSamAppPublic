@@ -413,6 +413,9 @@ class ExoPlaybackStateHolder(
             sendNewPlaybackEvent = true
         }
         if (rawQueue != resolveQueue()) {
+            // WeSongSam: a re-index (e.g. after moving the playing song) rebuilds the queue; music
+            // that was playing keeps playing.
+            val wasPlaying = player.playWhenReady
             player.setMediaItems(rawQueue.heap.map { it.buildMediaItem() })
             if (rawQueue.isShuffled) {
                 player.shuffleModeEnabled = true
@@ -422,7 +425,7 @@ class ExoPlaybackStateHolder(
             }
             player.seekTo(rawQueue.heapIndex, C.TIME_UNSET)
             player.prepare()
-            player.pause()
+            player.playWhenReady = wasPlaying
             sendNewPlaybackEvent = true
             shouldSeek = true
         }

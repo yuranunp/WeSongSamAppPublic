@@ -37,7 +37,7 @@ import timber.log.Timber as L
  * Appends every WeSongSam action to WeSongSam_actions.log as TSV rows:
  *
  * ```
- * <time>\t<action>\t<source relative path>\t<button 1-6>\t<target folder>
+ * <time>\t<action>\t<source relative path>\t<button 1-4>\t<target folder>
  * ```
  *
  * The log is written to the user-configured log directory (SAF tree Uri) when configured, or

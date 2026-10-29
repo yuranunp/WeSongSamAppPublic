@@ -28,11 +28,9 @@ object PlaybackActions {
     const val ACTION_SKIP_NEXT = BuildConfig.APPLICATION_ID + ".action.NEXT"
     const val ACTION_EXIT = BuildConfig.APPLICATION_ID + ".action.EXIT"
 
-    // WeSongSam move-to-folder actions, one per configured folder (buttons 1-6).
+    // WeSongSam move-to-folder actions, one per configured folder (buttons 1-4).
     const val ACTION_WSS_MOVE_1 = BuildConfig.APPLICATION_ID + ".action.WSS_MOVE_1"
     const val ACTION_WSS_MOVE_2 = BuildConfig.APPLICATION_ID + ".action.WSS_MOVE_2"
     const val ACTION_WSS_MOVE_3 = BuildConfig.APPLICATION_ID + ".action.WSS_MOVE_3"
     const val ACTION_WSS_MOVE_4 = BuildConfig.APPLICATION_ID + ".action.WSS_MOVE_4"
-    const val ACTION_WSS_MOVE_5 = BuildConfig.APPLICATION_ID + ".action.WSS_MOVE_5"
-    const val ACTION_WSS_MOVE_6 = BuildConfig.APPLICATION_ID + ".action.WSS_MOVE_6"
 }

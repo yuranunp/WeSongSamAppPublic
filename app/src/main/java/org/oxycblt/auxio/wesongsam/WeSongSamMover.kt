@@ -20,6 +20,7 @@ package org.oxycblt.auxio.wesongsam
 
 import android.content.Context
 import android.net.Uri
+import android.provider.DocumentsContract
 import androidx.documentfile.provider.DocumentFile
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -40,7 +41,7 @@ sealed interface MoveResult {
 }
 
 /**
- * Moves the currently playing song's file into one of the six configured SAF folders using the
+ * Moves the currently playing song's file into one of the four configured SAF folders using the
  * Storage Access Framework. Playback is unaffected: the song streams from its existing content
  * Uri until the library is re-indexed, and the indexer's change tracking picks up the move
  * afterwards.
@@ -55,7 +56,7 @@ constructor(
     private val libraryRefresher: LibraryRefresher,
 ) {
     /**
-     * Move [song] into folder number [button] (1-6) and log the action.
+     * Move [song] into folder number [button] (1-4) and log the action.
      *
      * @param targetFolder Override for the folder name written to the log (e.g. a mood-based
      * destination name). Null to use the configured folder label.
@@ -94,22 +95,35 @@ constructor(
         }
         val sourceUri = song.uri
         val name = song.path.name ?: song.uri.lastPathSegment ?: return MoveResult.Error(null)
+        // Already in the target folder: nothing to move (a copy would only add "name (1)").
+        if (
+            DocumentsContract.isDocumentUri(context, sourceUri) &&
+                DocumentsContract.getDocumentId(sourceUri).substringBeforeLast('/') ==
+                    DocumentsContract.getTreeDocumentId(treeUri)
+        ) {
+            return MoveResult.Done
+        }
         return try {
             val displayName = sourceUri.lastPathSegment?.substringAfterLast('/') ?: name
-            val existing = tree.findFile(displayName)
+            // With the real MIME type, createFile gives "name (1).mp3" when the name is taken, so an
+            // existing file is never overwritten.
             val target =
-                existing ?: tree.createFile("audio/*", displayName)
+                tree.createFile(
+                    context.contentResolver.getType(sourceUri) ?: "audio/*",
+                    displayName,
+                )
                     ?: return MoveResult.Error("create_failed")
-            context.contentResolver.openInputStream(sourceUri)?.use { input ->
-                context.contentResolver.openOutputStream(target.uri, "wt")?.use { output ->
-                    input.copyTo(output)
-                } ?: return MoveResult.Error("open_output_failed")
-            } ?: return MoveResult.Error("open_input_failed")
-            // Best effort delete at the old location.
-            try {
-                context.contentResolver.delete(sourceUri, null, null)
-            } catch (e: Exception) {
-                L.d("Could not delete source after copy", e)
+            val copied =
+                context.contentResolver.openInputStream(sourceUri)?.use { input ->
+                    context.contentResolver.openOutputStream(target.uri, "wt")?.use { output ->
+                        input.copyTo(output)
+                        true
+                    }
+                } == true
+            if (!copied || !deleteSource(sourceUri)) {
+                // Undo the copy, so a failed move never leaves the song in two places.
+                target.delete()
+                return MoveResult.Error(if (copied) "delete_failed" else "copy_failed")
             }
             MoveResult.Done
         } catch (e: Exception) {
@@ -117,6 +131,20 @@ constructor(
             MoveResult.Error(e.message)
         }
     }
+
+    /** Delete the original file after it was copied; false if it is still there. */
+    private fun deleteSource(sourceUri: Uri): Boolean =
+        try {
+            // A DocumentsProvider (the music folders) does not support ContentResolver.delete.
+            if (DocumentsContract.isDocumentUri(context, sourceUri)) {
+                DocumentsContract.deleteDocument(context.contentResolver, sourceUri)
+            } else {
+                context.contentResolver.delete(sourceUri, null, null) > 0
+            }
+        } catch (e: Exception) {
+            L.e("Could not delete the source after the copy", e)
+            false
+        }
 }
 
 /** Bridge to request a library re-index from the music system. */

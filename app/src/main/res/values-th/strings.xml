@@ -146,8 +146,6 @@
     <string name="wss_folder_2">โฟลเดอร์ 2</string>
     <string name="wss_folder_3">โฟลเดอร์ 3</string>
     <string name="wss_folder_4">โฟลเดอร์ 4</string>
-    <string name="wss_folder_5">โฟลเดอร์ 5</string>
-    <string name="wss_folder_6">โฟลเดอร์ 6</string>
     <string name="wss_moment_title">อารมณ์และช่วงเวลา</string>
     <string name="wss_mood_header">เพิ่มตามอารมณ์</string>
     <string name="wss_situation_header">เพลงสำหรับช่วงเวลานี้</string>
@@ -162,7 +160,7 @@
     <string name="wss_set_pick_folder">เลือกโฟลเดอร์</string>
     <string name="wss_set_folder_none">ยังไม่ได้ตั้งค่า</string>
     <string name="wss_set_moods_header">อารมณ์เพลง</string>
-    <string name="wss_set_moods_hint">คำสำหรับอารมณ์ คั่นด้วยเครื่องหมายจุลภาค</string>
+    <string name="wss_set_moods_hint">อารมณ์ คั่นด้วยจุลภาค สามคำแรกเป็นปุ่มเพลย์ลิสต์</string>
     <string name="wss_set_situations_header">ช่วงเวลา/สถานการณ์</string>
     <string name="wss_set_situations_hint">คำสำหรับสถานการณ์ คั่นด้วยเครื่องหมายจุลภาค</string>
     <string name="wss_set_save_lists">บันทึกรายการ</string>
@@ -175,6 +173,19 @@
     <string name="wss_set_import_button">นำเข้า WeSongSam_phone.json</string>
     <string name="wss_import_ok_toast">นำเข้าการตั้งค่า WeSongSam แล้ว</string>
     <string name="wss_import_failed_toast">นำเข้าการตั้งค่าไม่สำเร็จ</string>
+    <string name="wss_mood_added_toast">เพิ่มเข้าเพลย์ลิสต์ %1$s แล้ว</string>
+    <string name="wss_mood_already_toast">มีในเพลย์ลิสต์ %1$s อยู่แล้ว</string>
+    <string name="wss_set_buttons_header">ปุ่มบนหูฟังและในรถ</string>
+    <string name="wss_set_buttons_desc">ปุ่มย้อนกลับ ถัดไป และเล่น/หยุด บนหูฟัง อุปกรณ์บลูทูธ หรือในรถ กดติดกัน 1, 2 หรือ 3 ครั้งแล้วให้ทำอะไร ปุ่มบนหน้าจอยังทำงานตามปกติ</string>
+    <string name="wss_key_prev">ย้อนกลับ</string>
+    <string name="wss_key_next">ถัดไป</string>
+    <string name="wss_key_play">เล่น/หยุด</string>
+    <string name="wss_key_presses">%1$s %2$d ครั้ง</string>
+    <string name="wss_act_normal">ทำงานปกติ</string>
+    <string name="wss_act_nothing">ไม่ทำอะไร</string>
+    <string name="wss_act_move">ย้าย %1$d: %2$s</string>
+    <string name="wss_act_mood">เพลย์ลิสต์: %1$s</string>
+    <string name="wss_set_multi_press">รอการกดครั้งถัดไป %1$d มิลลิวินาที</string>
 
     <string-array name="wss_default_situations">
         <item>นอน</item>
@@ -183,5 +194,11 @@
         <item>เดิน</item>
         <item>เต้น</item>
         <item>ออกกำลังกาย</item>
+    </string-array>
+
+    <string-array name="wss_default_moods">
+        <item>สนุก</item>
+        <item>เศร้า</item>
+        <item>ชิล</item>
     </string-array>
 </resources>

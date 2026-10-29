@@ -24,7 +24,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Gravity
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.LinearLayout
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -42,7 +46,7 @@ import org.oxycblt.auxio.util.showToast
 import timber.log.Timber as L
 
 /**
- * The WeSongSam settings screen: configure the six move-to-folder destinations (SAF), button
+ * The WeSongSam settings screen: configure the four move-to-folder destinations (SAF), button
  * labels, mood keywords, listening situations, the action log location, and import the
  * WeSongSam_phone.json written by the Windows program.
  */
@@ -96,6 +100,16 @@ class WeSongSamSettingsFragment : Fragment() {
             }
 
         rebuildFolderRows(binding)
+        rebuildButtonRows(binding)
+        val multiPress = wesongsamSettings.multiPressMs
+        binding.wssMultiPress.value = multiPress.toFloat()
+        binding.wssMultiPressLabel.text = getString(R.string.wss_set_multi_press, multiPress)
+        binding.wssMultiPress.addOnChangeListener { _, value, fromUser ->
+            if (fromUser) {
+                wesongsamSettings.setMultiPressMs(value.toInt())
+                binding.wssMultiPressLabel.text = getString(R.string.wss_set_multi_press, value.toInt())
+            }
+        }
 
         binding.wssMoodsInput.setText(
             wesongsamSettings.moods.joinToString(", ") { it.name }
@@ -106,6 +120,7 @@ class WeSongSamSettingsFragment : Fragment() {
         binding.wssSaveLists.setOnClickListener {
             wesongsamSettings.setMoods(splitList(binding.wssMoodsInput.text?.toString()))
             wesongsamSettings.setSituations(splitList(binding.wssSituationsInput.text?.toString()))
+            rebuildButtonRows(binding)
             requireContext().showToast(R.string.wss_saved_toast)
         }
         binding.wssPickLogDir.setOnClickListener { logLauncher?.launch(null as Uri?) }
@@ -148,6 +163,61 @@ class WeSongSamSettingsFragment : Fragment() {
                     getString(R.string.wss_set_folder_none)
                 }
             rows.addView(row.root)
+        }
+    }
+
+    private fun rebuildButtonRows(binding: FragmentWesongsamSettingsBinding) {
+        val rows = binding.wssButtonRows
+        rows.removeAllViews()
+        val context = requireContext()
+        val actions = WssButtonAction.entries
+        val labels = actions.map(::actionLabel)
+        val keyNames = intArrayOf(R.string.wss_key_prev, R.string.wss_key_next, R.string.wss_key_play)
+        for (key in 0 until WeSongSamSettings.KEY_COUNT) {
+            for (presses in 1..WeSongSamSettings.MAX_PRESSES) {
+                val row = LinearLayout(context)
+                row.orientation = LinearLayout.HORIZONTAL
+                row.gravity = Gravity.CENTER_VERTICAL
+                val name = TextView(context)
+                name.text = getString(R.string.wss_key_presses, getString(keyNames[key]), presses)
+                row.addView(name, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f))
+                val spinner = Spinner(context)
+                spinner.adapter =
+                    ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, labels)
+                spinner.setSelection(actions.indexOf(wesongsamSettings.buttonAction(key, presses)))
+                spinner.onItemSelectedListener =
+                    object : AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(
+                            parent: AdapterView<*>?,
+                            view: View?,
+                            position: Int,
+                            id: Long,
+                        ) {
+                            wesongsamSettings.setButtonAction(key, presses, actions[position])
+                        }
+
+                        override fun onNothingSelected(parent: AdapterView<*>?) {}
+                    }
+                row.addView(
+                    spinner, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.5f))
+                rows.addView(row)
+            }
+        }
+    }
+
+    private fun actionLabel(action: WssButtonAction): String {
+        val folders = wesongsamSettings.folders
+        val moods = wesongsamSettings.moodButtonNames
+        return when (action) {
+            WssButtonAction.NORMAL -> getString(R.string.wss_act_normal)
+            WssButtonAction.NOTHING -> getString(R.string.wss_act_nothing)
+            WssButtonAction.MOVE_1 -> getString(R.string.wss_act_move, 1, folders[0].label)
+            WssButtonAction.MOVE_2 -> getString(R.string.wss_act_move, 2, folders[1].label)
+            WssButtonAction.MOVE_3 -> getString(R.string.wss_act_move, 3, folders[2].label)
+            WssButtonAction.MOVE_4 -> getString(R.string.wss_act_move, 4, folders[3].label)
+            WssButtonAction.MOOD_1 -> getString(R.string.wss_act_mood, moods[0])
+            WssButtonAction.MOOD_2 -> getString(R.string.wss_act_mood, moods[1])
+            WssButtonAction.MOOD_3 -> getString(R.string.wss_act_mood, moods[2])
         }
     }
 

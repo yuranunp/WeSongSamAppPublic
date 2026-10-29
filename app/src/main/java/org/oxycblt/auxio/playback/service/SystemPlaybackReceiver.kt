@@ -141,10 +141,6 @@ private constructor(
                 wesongsamActionHandler.moveToFolder(3, playbackManager)
             PlaybackActions.ACTION_WSS_MOVE_4 ->
                 wesongsamActionHandler.moveToFolder(4, playbackManager)
-            PlaybackActions.ACTION_WSS_MOVE_5 ->
-                wesongsamActionHandler.moveToFolder(5, playbackManager)
-            PlaybackActions.ACTION_WSS_MOVE_6 ->
-                wesongsamActionHandler.moveToFolder(6, playbackManager)
             WidgetProvider.ACTION_WIDGET_UPDATE -> {
                 L.d("Received widget update event")
                 widgetComponent.update()
@@ -188,8 +184,6 @@ private constructor(
                 addAction(PlaybackActions.ACTION_WSS_MOVE_2)
                 addAction(PlaybackActions.ACTION_WSS_MOVE_3)
                 addAction(PlaybackActions.ACTION_WSS_MOVE_4)
-                addAction(PlaybackActions.ACTION_WSS_MOVE_5)
-                addAction(PlaybackActions.ACTION_WSS_MOVE_6)
                 addAction(WidgetProvider.ACTION_WIDGET_UPDATE)
             }
     }

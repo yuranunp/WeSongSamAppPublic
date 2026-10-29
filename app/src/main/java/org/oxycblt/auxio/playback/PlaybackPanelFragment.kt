@@ -35,6 +35,7 @@ import androidx.dynamicanimation.animation.SpringForce
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlin.math.abs
 import org.oxycblt.auxio.R
 import org.oxycblt.auxio.databinding.FragmentPlaybackPanelBinding
@@ -58,6 +59,7 @@ import org.oxycblt.auxio.util.showToast
 import org.oxycblt.auxio.util.smoothScrollByPageTo
 import org.oxycblt.auxio.util.systemBarInsetsCompat
 import org.oxycblt.auxio.wesongsam.WeSongSamMomentDialog
+import org.oxycblt.auxio.wesongsam.WeSongSamSettings
 import org.oxycblt.musikr.MusicParent
 import org.oxycblt.musikr.Song
 import timber.log.Timber as L
@@ -76,6 +78,7 @@ class PlaybackPanelFragment :
     Toolbar.OnMenuItemClickListener,
     StyledSeekBar.Listener,
     StepperOverlay.Listener {
+    @Inject lateinit var wesongsamSettings: WeSongSamSettings
     private val coverPagerAdapter = CoverPagerAdapter(this)
     private val playbackModel: PlaybackViewModel by activityViewModels()
     private val detailModel: DetailViewModel by activityViewModels()
@@ -169,18 +172,21 @@ class PlaybackPanelFragment :
         binding.playbackSkipNext.setOnClickListener { playbackModel.next() }
         binding.playbackShuffle.setOnClickListener { playbackModel.toggleShuffled() }
 
-        // WeSongSam move-to-folder buttons (1-6).
-        val wssMoveButtons =
-            listOf(
-                binding.playbackWssMove1,
-                binding.playbackWssMove2,
-                binding.playbackWssMove3,
-                binding.playbackWssMove4,
-                binding.playbackWssMove5,
-                binding.playbackWssMove6,
-            )
-        wssMoveButtons.forEachIndexed { index, button ->
-            button?.setOnClickListener { playbackModel.moveToFolder(index + 1) }
+        // WeSongSam big buttons (only in the tall-phone layout): four move-to-folder buttons and
+        // three mood playlist buttons.
+        binding.playbackWss?.let { wss ->
+            val folders = wesongsamSettings.folders
+            listOf(wss.wssMove1, wss.wssMove2, wss.wssMove3, wss.wssMove4).forEachIndexed {
+                index,
+                button ->
+                button.text = folders[index].label
+                button.setOnClickListener { playbackModel.moveToFolder(index + 1) }
+            }
+            val moods = wesongsamSettings.moodButtonNames
+            listOf(wss.wssMood1, wss.wssMood2, wss.wssMood3).forEachIndexed { index, button ->
+                button.text = moods[index]
+                button.setOnClickListener { playbackModel.addToMoodPlaylist(index + 1) }
+            }
         }
 
         binding.playbackMore?.setOnClickListener {

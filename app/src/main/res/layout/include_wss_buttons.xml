@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- WeSongSam on the playback screen: four big move-to-folder buttons and three mood playlist buttons. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/wss_move_1"
+            style="?attr/materialButtonTonalStyle"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginEnd="@dimen/spacing_tiny"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/wss_folder_1"
+            app:icon="@drawable/ic_wss_move_1_24" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/wss_move_2"
+            style="?attr/materialButtonTonalStyle"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginStart="@dimen/spacing_tiny"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/wss_folder_2"
+            app:icon="@drawable/ic_wss_move_2_24" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/wss_move_3"
+            style="?attr/materialButtonTonalStyle"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginEnd="@dimen/spacing_tiny"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/wss_folder_3"
+            app:icon="@drawable/ic_wss_move_3_24" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/wss_move_4"
+            style="?attr/materialButtonTonalStyle"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginStart="@dimen/spacing_tiny"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/wss_folder_4"
+            app:icon="@drawable/ic_wss_move_4_24" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/wss_mood_1"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginEnd="@dimen/spacing_tiny"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/wss_mood_2"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="@dimen/spacing_tiny"
+            android:layout_marginEnd="@dimen/spacing_tiny"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/wss_mood_3"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="@dimen/spacing_tiny"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1" />
+
+    </LinearLayout>
+
+</LinearLayout>

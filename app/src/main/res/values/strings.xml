@@ -507,8 +507,6 @@
     <string name="wss_folder_2">Folder 2</string>
     <string name="wss_folder_3">Folder 3</string>
     <string name="wss_folder_4">Folder 4</string>
-    <string name="wss_folder_5">Folder 5</string>
-    <string name="wss_folder_6">Folder 6</string>
     <string name="wss_moment_title">Mood &amp; moment</string>
     <string name="wss_mood_header">Add by mood</string>
     <string name="wss_situation_header">Music for the moment</string>
@@ -523,7 +521,7 @@
     <string name="wss_set_pick_folder">Choose folder</string>
     <string name="wss_set_folder_none">Not configured</string>
     <string name="wss_set_moods_header">Moods</string>
-    <string name="wss_set_moods_hint">Comma-separated mood keywords</string>
+    <string name="wss_set_moods_hint">Comma-separated moods; the first three are the playlist buttons</string>
     <string name="wss_set_situations_header">Situations</string>
     <string name="wss_set_situations_hint">Comma-separated situations</string>
     <string name="wss_set_save_lists">Save lists</string>
@@ -536,6 +534,19 @@
     <string name="wss_set_import_button">Import WeSongSam_phone.json</string>
     <string name="wss_import_ok_toast">WeSongSam configuration imported</string>
     <string name="wss_import_failed_toast">Could not import configuration</string>
+    <string name="wss_mood_added_toast">Added to %1$s</string>
+    <string name="wss_mood_already_toast">Already in %1$s</string>
+    <string name="wss_set_buttons_header">Headset and car buttons</string>
+    <string name="wss_set_buttons_desc">What the Previous, Next and Play/Pause buttons on a headset, Bluetooth device or car do when pressed 1, 2 or 3 times in a row. The buttons on the screen keep their normal job.</string>
+    <string name="wss_key_prev">Previous</string>
+    <string name="wss_key_next">Next</string>
+    <string name="wss_key_play">Play/Pause</string>
+    <string name="wss_key_presses">%1$s × %2$d</string>
+    <string name="wss_act_normal">Normal</string>
+    <string name="wss_act_nothing">Do nothing</string>
+    <string name="wss_act_move">Move %1$d: %2$s</string>
+    <string name="wss_act_mood">Playlist: %1$s</string>
+    <string name="wss_set_multi_press">Wait for the next press: %1$d ms</string>
 
     <string-array name="wss_default_situations">
         <item>sleep</item>
@@ -544,5 +555,11 @@
         <item>walk</item>
         <item>dance</item>
         <item>workout</item>
+    </string-array>
+
+    <string-array name="wss_default_moods">
+        <item>Happy</item>
+        <item>Sad</item>
+        <item>Chill</item>
     </string-array>
 </resources>

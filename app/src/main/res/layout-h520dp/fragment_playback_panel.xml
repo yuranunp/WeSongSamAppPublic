@@ -105,7 +105,7 @@
         android:layout_marginEnd="@dimen/spacing_medium"
         android:layout_marginBottom="@dimen/spacing_medium"
         app:layout_constraintTop_toBottomOf="@+id/playback_seek_bar"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/playback_wss"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_max="400dp">
@@ -164,5 +164,18 @@
 
         </org.oxycblt.auxio.playback.ui.button.ScaledPlaybackButtonGroup>
     </org.oxycblt.auxio.playback.ui.ForcedLTRFrameLayout>
+
+    <include
+        android:id="@+id/playback_wss"
+        layout="@layout/include_wss_buttons"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_medium"
+        android:layout_marginEnd="@dimen/spacing_medium"
+        android:layout_marginBottom="@dimen/spacing_medium"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playback_controls_container" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

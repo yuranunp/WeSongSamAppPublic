@@ -361,15 +361,13 @@ private constructor(
                 .build()
         state.addCustomAction(shuffleAction)
 
-        // WeSongSam move-to-folder actions (buttons 1-6).
+        // WeSongSam move-to-folder actions (buttons 1-4).
         val wssLabels =
             listOf(
                 context.getString(R.string.wss_folder_1),
                 context.getString(R.string.wss_folder_2),
                 context.getString(R.string.wss_folder_3),
                 context.getString(R.string.wss_folder_4),
-                context.getString(R.string.wss_folder_5),
-                context.getString(R.string.wss_folder_6),
             )
         val wssActions =
             listOf(
@@ -377,8 +375,6 @@ private constructor(
                 PlaybackActions.ACTION_WSS_MOVE_2,
                 PlaybackActions.ACTION_WSS_MOVE_3,
                 PlaybackActions.ACTION_WSS_MOVE_4,
-                PlaybackActions.ACTION_WSS_MOVE_5,
-                PlaybackActions.ACTION_WSS_MOVE_6,
             )
         wssActions.forEachIndexed { index, action ->
             state.addCustomAction(
@@ -418,8 +414,6 @@ private constructor(
                 R.drawable.ic_wss_move_2_24,
                 R.drawable.ic_wss_move_3_24,
                 R.drawable.ic_wss_move_4_24,
-                R.drawable.ic_wss_move_5_24,
-                R.drawable.ic_wss_move_6_24,
             )
     }
 }
@@ -456,8 +450,6 @@ private class PlaybackNotification(
         addAction(buildAction(context, PlaybackActions.ACTION_WSS_MOVE_2, R.drawable.ic_wss_move_2_24))
         addAction(buildAction(context, PlaybackActions.ACTION_WSS_MOVE_3, R.drawable.ic_wss_move_3_24))
         addAction(buildAction(context, PlaybackActions.ACTION_WSS_MOVE_4, R.drawable.ic_wss_move_4_24))
-        addAction(buildAction(context, PlaybackActions.ACTION_WSS_MOVE_5, R.drawable.ic_wss_move_5_24))
-        addAction(buildAction(context, PlaybackActions.ACTION_WSS_MOVE_6, R.drawable.ic_wss_move_6_24))
 
         setStyle(
             MediaStyle(this).setMediaSession(sessionToken).setShowActionsInCompactView(1, 2, 3)

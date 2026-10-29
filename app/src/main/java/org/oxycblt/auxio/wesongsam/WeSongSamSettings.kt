@@ -30,7 +30,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import timber.log.Timber as L
 
-/** One of the six move-to-folder destinations. */
+/** One of the four move-to-folder destinations. */
 data class WssFolder(
     val index: Int,
     /** SAF tree Uri string, or null if unconfigured. */
@@ -48,12 +48,25 @@ data class WssMood(val name: String)
 /** A configured listening situation used by "Music for the moment". */
 data class WssSituation(val name: String)
 
+/** What one press pattern of a physical media button does (headset, Bluetooth, car). */
+enum class WssButtonAction {
+    NORMAL,
+    NOTHING,
+    MOVE_1,
+    MOVE_2,
+    MOVE_3,
+    MOVE_4,
+    MOOD_1,
+    MOOD_2,
+    MOOD_3,
+}
+
 /**
- * WeSongSam configuration: the six move-to-folder destinations (SAF tree URIs + labels), mood
+ * WeSongSam configuration: the four move-to-folder destinations (SAF tree URIs + labels), mood
  * keywords, listening situations, and the location of the actions log file.
  */
 interface WeSongSamSettings {
-    /** The six configured move-to-folder destinations. */
+    /** The four configured move-to-folder destinations. */
     val folders: List<WssFolder>
 
     /** Mood keywords used for "Add by mood". */
@@ -67,6 +80,19 @@ interface WeSongSamSettings {
      * user-picked directory, or null to use app-external files.
      */
     val logTreeUri: String?
+
+    /** Names of the three mood playlist buttons: the first three moods, else the defaults. */
+    val moodButtonNames: List<String>
+
+    /** How long to wait for another press of the same media button, in milliseconds. */
+    val multiPressMs: Int
+
+    /** What pressing physical media button [key] (KEY_PREV, KEY_NEXT, KEY_PLAY) [presses] times does. */
+    fun buttonAction(key: Int, presses: Int): WssButtonAction
+
+    fun setButtonAction(key: Int, presses: Int, action: WssButtonAction)
+
+    fun setMultiPressMs(ms: Int)
 
     fun setFolder(index: Int, treeUri: String?, label: String)
 
@@ -86,6 +112,15 @@ interface WeSongSamSettings {
     interface Listener {
         /** Called when any WeSongSam configuration changed. */
         fun onWeSongSamSettingsChanged() {}
+    }
+
+    companion object {
+        const val KEY_PREV = 0
+        const val KEY_NEXT = 1
+        const val KEY_PLAY = 2
+        const val KEY_COUNT = 3
+        const val MAX_PRESSES = 3
+        const val MOOD_BUTTONS = 3
     }
 }
 
@@ -119,6 +154,41 @@ constructor(@ApplicationContext private val context: Context) : WeSongSamSetting
 
     override val logTreeUri: String?
         get() = sharedPreferences.getString(KEY_LOG_TREE_URI, null)
+
+    override val moodButtonNames: List<String>
+        get() {
+            val names = moods.map { it.name }
+            val defaults = context.resources.getStringArray(org.oxycblt.auxio.R.array.wss_default_moods)
+            return (0 until WeSongSamSettings.MOOD_BUTTONS).map { names.getOrNull(it) ?: defaults[it] }
+        }
+
+    override val multiPressMs: Int
+        get() = sharedPreferences.getInt(KEY_MULTI_PRESS_MS, DEFAULT_MULTI_PRESS_MS)
+
+    override fun buttonAction(key: Int, presses: Int): WssButtonAction {
+        val raw =
+            sharedPreferences.getString(keyButton(key, presses), null)
+                ?: return defaultButtonAction(key, presses)
+        return WssButtonAction.entries.find { it.name == raw } ?: WssButtonAction.NORMAL
+    }
+
+    override fun setButtonAction(key: Int, presses: Int, action: WssButtonAction) {
+        sharedPreferences.edit { putString(keyButton(key, presses), action.name) }
+        notifyChanged()
+    }
+
+    override fun setMultiPressMs(ms: Int) {
+        sharedPreferences.edit { putInt(KEY_MULTI_PRESS_MS, ms.coerceIn(MIN_MULTI_PRESS_MS, MAX_MULTI_PRESS_MS)) }
+        notifyChanged()
+    }
+
+    // The user's own request: Previous once = folder 1, Next twice = folder 2.
+    private fun defaultButtonAction(key: Int, presses: Int) =
+        when {
+            key == WeSongSamSettings.KEY_PREV && presses == 1 -> WssButtonAction.MOVE_1
+            key == WeSongSamSettings.KEY_NEXT && presses == 2 -> WssButtonAction.MOVE_2
+            else -> WssButtonAction.NORMAL
+        }
 
     override fun setFolder(index: Int, treeUri: String?, label: String) {
         sharedPreferences.edit {
@@ -244,14 +314,20 @@ constructor(@ApplicationContext private val context: Context) : WeSongSamSetting
 
     private fun keyFolderLabel(index: Int) = "wesongsam_folder_${index}_label"
 
+    private fun keyButton(key: Int, presses: Int) = "wesongsam_button_${key}_$presses"
+
     companion object {
         private const val PREFS_FILE = "wesongsam_settings"
         private const val KEY_MOODS = "wesongsam_moods"
         private const val KEY_SITUATIONS = "wesongsam_situations"
         private const val KEY_LOG_TREE_URI = "wesongsam_log_tree_uri"
+        private const val KEY_MULTI_PRESS_MS = "wesongsam_multi_press_ms"
+        const val DEFAULT_MULTI_PRESS_MS = 500
+        const val MIN_MULTI_PRESS_MS = 250
+        const val MAX_MULTI_PRESS_MS = 1000
 
         /** Number of move-to-folder destinations/buttons. */
-        const val FOLDER_COUNT = 6
+        const val FOLDER_COUNT = 4
 
         private val FOLDER_FALLBACK_LABELS =
             intArrayOf(
@@ -259,8 +335,6 @@ constructor(@ApplicationContext private val context: Context) : WeSongSamSetting
                 org.oxycblt.auxio.R.string.wss_folder_2,
                 org.oxycblt.auxio.R.string.wss_folder_3,
                 org.oxycblt.auxio.R.string.wss_folder_4,
-                org.oxycblt.auxio.R.string.wss_folder_5,
-                org.oxycblt.auxio.R.string.wss_folder_6,
             )
     }
 }

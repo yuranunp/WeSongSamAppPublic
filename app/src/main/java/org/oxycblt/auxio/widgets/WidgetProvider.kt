@@ -480,8 +480,6 @@ class WidgetProvider : AppWidgetProvider() {
                 PlaybackActions.ACTION_WSS_MOVE_2,
                 PlaybackActions.ACTION_WSS_MOVE_3,
                 PlaybackActions.ACTION_WSS_MOVE_4,
-                PlaybackActions.ACTION_WSS_MOVE_5,
-                PlaybackActions.ACTION_WSS_MOVE_6,
             )
         val ids =
             intArrayOf(
@@ -489,8 +487,6 @@ class WidgetProvider : AppWidgetProvider() {
                 R.id.widget_wss_move_2,
                 R.id.widget_wss_move_3,
                 R.id.widget_wss_move_4,
-                R.id.widget_wss_move_5,
-                R.id.widget_wss_move_6,
             )
         for (i in ids.indices) {
             setOnClickPendingIntent(
